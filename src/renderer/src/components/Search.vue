@@ -5,7 +5,7 @@
       placeholder="你好..."
       autofocus
       class="w-full h-full input input-ghost input-xl focus:outline-none select-none"
-      @click="fun"
+      @input="handleSearchInput"
     />
     <div class="h-full avatar p-[0.75rem] pl-0 select-none">
       <div class="h-full rounded-full">
@@ -18,4 +18,16 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useSearchStore } from '@renderer/stores/search'
+
+// 搜索仓库
+const searchStore = useSearchStore()
+/**
+ * 处理搜索输入
+ * @param e 输入事件
+ */
+const handleSearchInput = (e: InputEvent): void => {
+  searchStore.handleSearchInput(e.data)
+}
+</script>

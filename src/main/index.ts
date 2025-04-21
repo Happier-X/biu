@@ -3,15 +3,18 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow: BrowserWindow
+
 function createWindow(): void {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 65,
-    minWidth: 300,
-    minHeight: 65,
-    maxWidth: 800,
-    maxHeight: 65,
+    // minWidth: 300,
+    // minHeight: 65,
+    // maxWidth: 800,
+    // maxHeight: 65,
+    resizable: false,
     show: false,
     frame: false,
     autoHideMenuBar: true,
@@ -56,6 +59,10 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('resize-window', (_, height) => {
+    const [width] = mainWindow.getSize()
+    mainWindow.setSize(width, height)
+  })
 
   createWindow()
 
