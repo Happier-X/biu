@@ -10,6 +10,8 @@ function createWindow(): void {
     height: 65,
     minWidth: 300,
     minHeight: 65,
+    maxWidth: 800,
+    maxHeight: 65,
     show: false,
     frame: false,
     autoHideMenuBar: true,
