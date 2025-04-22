@@ -14,10 +14,10 @@ export const useSearchStore = defineStore('search', () => {
     searchContent.value = content || ''
     if (searchContent.value.length > 0) {
       isShowResults.value = true
-      window.electron.ipcRenderer.send('resize-window', 180)
+      window.electron.ipcRenderer.send('resize-window', 660)
     } else {
       isShowResults.value = false
-      window.electron.ipcRenderer.send('resize-window', 65)
+      window.electron.ipcRenderer.send('resize-window', 60)
     }
   }
 

@@ -1,7 +1,10 @@
-import './assets/main.css'
+import '@renderer/assets/main.css'
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from '@renderer/App.vue'
 import { createPinia } from 'pinia'
+import { dragWindow } from '@renderer/directives/dragWindow'
 
 const pinia = createPinia()
-createApp(App).use(pinia).mount('#app')
+const app = createApp(App)
+app.directive('drag-window', dragWindow)
+app.use(pinia).mount('#app')

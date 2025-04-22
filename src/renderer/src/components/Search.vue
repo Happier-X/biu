@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-[65px]">
+  <div class="flex w-full h-full">
     <input
       type="text"
       placeholder="你好..."
@@ -7,7 +7,7 @@
       class="w-full h-full input input-ghost input-xl focus:outline-none select-none"
       @input="handleSearchInput"
     />
-    <div class="h-full avatar p-[0.75rem] pl-0 select-none">
+    <div class="h-full avatar p-[0.6rem] pl-0 select-none">
       <div class="h-full rounded-full">
         <img
           draggable="false"
