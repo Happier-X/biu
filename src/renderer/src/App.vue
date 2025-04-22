@@ -15,4 +15,9 @@ import { useSearchStore } from '@renderer/stores/search'
 
 // 搜索仓库
 const searchStore = useSearchStore()
+const getDownloadApps = async () => {
+  const res = await window.electron.ipcRenderer.invoke('get-download-apps')
+  console.log(res)
+}
+getDownloadApps()
 </script>

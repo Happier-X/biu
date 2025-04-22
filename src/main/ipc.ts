@@ -1,4 +1,5 @@
 import { ipcMain, BrowserWindow, screen } from 'electron'
+import { getInstalledApps } from 'get-installed-apps'
 
 export function setupIpcHandlers(mainWindow: BrowserWindow): void {
   // 调整窗口大小
@@ -21,5 +22,10 @@ export function setupIpcHandlers(mainWindow: BrowserWindow): void {
       height: windowHeight
     })
   })
+  // 获取下载的软件
+  ipcMain.handle('get-download-apps', async () => {
+    const res = await getInstalledApps()
+    console.log(res)
+    return res
+  })
 }
-123
