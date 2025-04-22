@@ -17,6 +17,7 @@ export const useSearchStore = defineStore('search', () => {
       window.electron.ipcRenderer.send('resize-window', 180)
     } else {
       isShowResults.value = false
+      window.electron.ipcRenderer.send('resize-window', 65)
     }
   }
 

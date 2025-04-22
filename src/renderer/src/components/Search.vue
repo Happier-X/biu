@@ -27,7 +27,8 @@ const searchStore = useSearchStore()
  * 处理搜索输入
  * @param e 输入事件
  */
-const handleSearchInput = (e: InputEvent): void => {
-  searchStore.handleSearchInput(e.data)
+const handleSearchInput = (e: Event): void => {
+  const target = e.target as HTMLInputElement
+  searchStore.handleSearchInput(target.value)
 }
 </script>

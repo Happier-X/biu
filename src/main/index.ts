@@ -1,7 +1,8 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { setupIpcHandlers } from './ipc'
 
 let mainWindow: BrowserWindow
 
@@ -10,10 +11,9 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 65,
-    // minWidth: 300,
-    // minHeight: 65,
-    // maxWidth: 800,
-    // maxHeight: 65,
+    minWidth: 800,
+    minHeight: 65,
+    maxWidth: 800,
     resizable: false,
     show: false,
     frame: false,
@@ -57,14 +57,9 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
-  ipcMain.on('resize-window', (_, height) => {
-    const [width] = mainWindow.getSize()
-    mainWindow.setSize(width, height)
-  })
-
   createWindow()
+
+  setupIpcHandlers(mainWindow)
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
