@@ -14,12 +14,37 @@ export const useSearchStore = defineStore('search', () => {
     searchContent.value = content || ''
     if (searchContent.value.length > 0) {
       isShowResults.value = true
-      window.electron.ipcRenderer.send('resize-window', 660)
+      searchResultList.value = appList.value.filter((item) => {
+        return item.Name.toLowerCase().includes(searchContent.value.toLowerCase())
+      })
+      if (searchResultList.value.length > 10) {
+        window.electron.ipcRenderer.send('resize-window', 60 * 11)
+      } else {
+        window.electron.ipcRenderer.send('resize-window', 60 * (searchResultList.value.length + 1))
+      }
     } else {
       isShowResults.value = false
+      searchResultList.value = []
       window.electron.ipcRenderer.send('resize-window', 60)
     }
   }
-
-  return { searchContent, isShowResults, handleSearchInput }
+  // 应用列表
+  const appList = ref([])
+  /**
+   * 设置应用列表
+   * @param app 应用列表
+   */
+  const setDownloadApps = (list): void => {
+    appList.value = list
+  }
+  // 搜索结果列表
+  const searchResultList = ref([])
+  return {
+    searchContent,
+    isShowResults,
+    handleSearchInput,
+    setDownloadApps,
+    appList,
+    searchResultList
+  }
 })
