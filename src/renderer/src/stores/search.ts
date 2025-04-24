@@ -7,6 +7,15 @@ export const useSearchStore = defineStore('search', () => {
   // 是否展示搜索结果
   const isShowResults = ref(false)
   /**
+   * 清空搜索内容
+   */
+  const clearSearchContent = () => {
+    searchContent.value = ''
+    isShowResults.value = false
+    searchResultList.value = []
+    window.electron.ipcRenderer.send('resize-window', 60)
+  }
+  /**
    * 处理搜索输入
    * @param content 搜索内容
    */
@@ -15,7 +24,7 @@ export const useSearchStore = defineStore('search', () => {
     if (searchContent.value.length > 0) {
       isShowResults.value = true
       searchResultList.value = appList.value.filter((item) => {
-        return item.Name.toLowerCase().includes(searchContent.value.toLowerCase())
+        return item.name.toLowerCase().includes(searchContent.value.toLowerCase())
       })
       if (searchResultList.value.length > 10) {
         window.electron.ipcRenderer.send('resize-window', 60 * 11)
@@ -45,6 +54,7 @@ export const useSearchStore = defineStore('search', () => {
     handleSearchInput,
     setDownloadApps,
     appList,
-    searchResultList
+    searchResultList,
+    clearSearchContent
   }
 })

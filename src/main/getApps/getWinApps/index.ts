@@ -1,5 +1,5 @@
-import { getAppsByStartMenu } from './byStartMenu'
+import { getAppsByShortCut } from './byShortCut'
 
 export async function getWinApps() {
-  return await getAppsByStartMenu()
+  return await getAppsByShortCut()
 }

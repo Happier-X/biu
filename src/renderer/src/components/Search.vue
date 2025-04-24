@@ -9,11 +9,7 @@
     />
     <div class="h-full avatar p-[0.6rem] pl-0 select-none">
       <div class="h-full rounded-full">
-        <img
-          draggable="false"
-          class="pointer-events-none"
-          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-        />
+        <img draggable="false" class="pointer-events-none" src="" />
       </div>
     </div>
   </div>

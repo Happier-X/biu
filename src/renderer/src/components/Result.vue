@@ -8,7 +8,7 @@
         :key="index"
         @click="handleSelect(item)"
       >
-        {{ item.Name }}
+        {{ item.name }}
       </li>
     </ul>
   </div>
@@ -33,13 +33,15 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleEnter)
 })
 const handleSelect = (item) => {
-  window.electron.ipcRenderer.send('open-app', item.AppID)
+  searchStore.clearSearchContent()
+  window.electron.ipcRenderer.send('open-app', item.target)
 }
 const handleEnter = (event: KeyboardEvent) => {
   if (event.key === 'Enter') {
     const selectedItem = searchStore.searchResultList[currentIndex.value]
     if (selectedItem) {
-      window.electron.ipcRenderer.send('open-app', selectedItem.AppID)
+      searchStore.clearSearchContent()
+      window.electron.ipcRenderer.send('open-app', selectedItem.target)
     }
   }
 }

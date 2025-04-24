@@ -55,6 +55,14 @@ app.whenReady().then(() => {
   })
 
   createWindow()
+  app
+    .getFileIcon('Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App')
+    .then((icon) => {
+      console.log('File icon retrieved:', icon.toDataURL())
+    })
+    .catch((err) => {
+      console.error('Error retrieving file icon:', err)
+    })
 
   setupIpcHandlers(mainWindow)
 
