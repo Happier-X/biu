@@ -30,6 +30,7 @@ export function setupIpcHandlers(mainWindow: BrowserWindow): void {
   })
   // 打开软件
   ipcMain.on('open-app', (_, id) => {
+    mainWindow.minimize()
     if (typeof id === 'object' && id.AppID) {
       // 如果接收到的是对象，提取 AppID
       id = id.AppID
