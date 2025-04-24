@@ -1,5 +1,6 @@
 import { ipcMain, BrowserWindow, screen } from 'electron'
 import { getApps } from './getApps'
+import { exec } from 'child_process'
 
 export function setupIpcHandlers(mainWindow: BrowserWindow): void {
   // 调整窗口大小
@@ -26,5 +27,25 @@ export function setupIpcHandlers(mainWindow: BrowserWindow): void {
   ipcMain.handle('get-download-apps', async () => {
     const res = await getApps()
     return res
+  })
+  // 打开软件
+  ipcMain.on('open-app', (_, id) => {
+    if (typeof id === 'object' && id.AppID) {
+      // 如果接收到的是对象，提取 AppID
+      id = id.AppID
+    }
+    const command = `explorer.exe shell:appsFolder\\${id}`
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`执行出错: ${error}`)
+        return
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`)
+      }
+      if (stdout) {
+        console.log(`stdout: ${stdout}`)
+      }
+    })
   })
 }
